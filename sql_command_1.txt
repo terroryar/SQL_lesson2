@@ -1,0 +1,48 @@
+
+CREATE TABLE IF NOT EXISTS artist (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL
+);
+
+
+
+CREATE TABLE IF NOT EXISTS ganr (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS artist_ganr (
+	artist_id INTEGER REFERENCES artist(id),
+	ganr_id INTEGER REFERENCES ganr(id),
+	CONSTRAINT pk PRIMARY KEY (artist_id, ganr_id)
+);
+
+CREATE TABLE IF NOT EXISTS albom (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ArtistAlboms (
+	id SERIAL PRIMARY KEY,
+	artist_id INTEGER NOT NULL REFERENCES artist(id),
+	albom_id INTEGER NOT NULL REFERENCES albom(id)
+);
+
+CREATE TABLE IF NOT EXISTS trak (
+    id SERIAL PRIMARY key,
+	albom_id INTEGER NOT NULL REFERENCES albom(id),
+	birthday date NOT NULL,
+	name VARCHAR(60)
+);
+
+CREATE TABLE IF NOT EXISTS trak_sbornik (
+	id SERIAL PRIMARY KEY,
+	artist_id INTEGER NOT NULL REFERENCES trak(id),
+	albom_id INTEGER NOT NULL REFERENCES sbornik(id)
+);
+
+CREATE TABLE IF NOT EXISTS sbornik (
+    id SERIAL PRIMARY key,
+	year date NOT NULL,
+	name VARCHAR(60) NOT NULL
+);
